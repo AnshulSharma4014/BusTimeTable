@@ -40,7 +40,10 @@ const Timetable = ({ sourceParam, destinationParam, fireEvent }) => {
 						destination: destination?.trim()?.toLowerCase(),
 				  };
 
-			const response = await axios.post("/view", requestObj);
+			const response = await axios.post(
+				"http://localhost:5000/view",
+				requestObj
+			);
 			setTimetable(response.data);
 		} catch (error) {
 			console.error(error);
@@ -94,37 +97,36 @@ const Timetable = ({ sourceParam, destinationParam, fireEvent }) => {
 
 	return (
 		<>
-			<View>
-				<ImageBackground
-					source={require("../assets/hrtc_01.jpg")}
-					style={styles.backgroundImage}
-				></ImageBackground>
-			</View>
-			<View style={styles.container}>
-				<TextInput
-					placeholder="Enter Source Name"
-					value={source}
-					onChangeText={setSource}
-					style={styles.input}
-					placeholderTextColor="#BDBDBD"
-				/>
-				<TextInput
-					placeholder="Enter Destination Name"
-					value={destination}
-					onChangeText={setDestination}
-					style={[styles.input, styles.inputLast]}
-					placeholderTextColor="#BDBDBD"
-				/>
-			</View>
+			<ImageBackground
+				source={require("../assets/hrtc_01.jpg")}
+				style={styles.backgroundImage}
+			>
+				<View style={styles.container}>
+					<TextInput
+						placeholder="Enter Source Name"
+						value={source}
+						onChangeText={setSource}
+						style={styles.input}
+						placeholderTextColor="#BDBDBD"
+					/>
+					<TextInput
+						placeholder="Enter Destination Name"
+						value={destination}
+						onChangeText={setDestination}
+						style={[styles.input, styles.inputLast]}
+						placeholderTextColor="#BDBDBD"
+					/>
+				</View>
 
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity
-					style={styles.searchButtonContainer}
-					onPress={handleSearch}
-				>
-					<Text style={styles.searchButtonText}>Search</Text>
-				</TouchableOpacity>
-			</View>
+				<View style={styles.buttonContainer}>
+					<TouchableOpacity
+						style={styles.searchButtonContainer}
+						onPress={handleSearch}
+					>
+						<Text style={styles.searchButtonText}>Search</Text>
+					</TouchableOpacity>
+				</View>
+			</ImageBackground>
 
 			<View style={styles.busCardsContainer}>
 				<FlatList
@@ -147,12 +149,10 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		paddingHorizontal: 15,
 		marginHorizontal: 20,
-		marginTop: 20,
 	},
 	backgroundImage: {
-		width: 450,
+		width: "100vw", // Use screen width
 		height: 200,
-		flex: 1,
 		resizeMode: "cover",
 		justifyContent: "center",
 	},
@@ -186,25 +186,9 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		textAlign: "center",
 	},
-	buttonContainerForMoreDetails: {
-		alignItems: "center",
-		paddingRight: 10,
-	},
-	searchButtonContainerForMoreDetails: {
-		backgroundColor: "orange",
-		borderRadius: 20,
-		width: 100, // Increase width as needed
-		paddingVertical: 6,
-		paddingHorizontal: 20,
-	},
-	searchButtonTextForMoreDetails: {
-		color: "white",
-		fontSize: 16,
-		fontWeight: "bold",
-		textAlign: "center",
-	},
 	busCardsContainer: {
-		marginTop: 70,
+		marginTop: 20, // Adjust as needed
+		marginBottom: 20, // Create space between search button and flat list
 	},
 	itemContainer: {
 		backgroundColor: "#F2F2F2",
